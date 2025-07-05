@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+  <path fill="#9B1010" d="M42,14H6l3,29h30L42,14z"/>
+  <path fill="#B71C1C" d="M24,35L6,14h36L24,35z"/>
+  <path fill="#C62828" d="M24,35l-9-21h18L24,35z"/>
+  <path fill="#E53935" d="M24,35l-3-21h6L24,35z"/>
+  <path fill="#FF5252" d="M24,35l0-21h3L24,35z"/>
+  <path fill="#FF1744" d="M24,35V14h-3L24,35z"/>
+  <path fill="#D50000" d="M24,35l-9-21l6,0L24,35z"/>
+  <path fill="#B71C1C" d="M24,35l9-21h-18L24,35z"/>
+  <polygon fill="#C62828" points="24,35 33,14 15,14"/>
+  <path fill="#E53935" d="M21,14h6l-3,21L21,14z"/>
+  <path fill="#EF5350" d="M24,14h-3l3,21V14z"/>
+  <path fill="#E57373" d="M24,14h3l-3,21V14z"/>
+  <path fill="#EF9A9A" d="M27,14h-6l3,21L27,14z"/>
+  <path fill="#C62828" d="M6,14l18,21L6,14z"/>
+  <path fill="#F44336" d="M6,14h9l9,21L6,14z"/>
+  <path fill="#C62828" d="M42,14L24,35L42,14z"/>
+  <path fill="#F44336" d="M42,14h-9l-9,21L42,14z"/>
+  <polygon fill="#B71C1C" points="24,35 15,14 33,14"/>
+  <path fill="#C62828" d="M24,35l-9-21h18L24,35z"/>
+  <path fill="#E53935" d="M24,35l-3-21h6L24,35z"/>
+  <path fill="#EF5350" d="M24,35V14h3L24,35z"/>
+  <path fill="#E57373" d="M24,35V14h-3L24,35z"/>
+  <path fill="#EF9A9A" d="M24,35l3-21h-6L24,35z"/>
+  <path fill="#FFEBEE" d="M21,14h6l-3,21L21,14z"/>
+  <path fill="#FFF" d="M24,14l-3,0l3,21V14z"/>
+  <path fill="#FFF" d="M24,14h3l-3,21V14z"/>
+  <path fill="#FFEBEE" d="M27,14h-6l3,21L27,14z"/>
+  <path fill="#FFF" d="M24,35l-9-21h18L24,35z"/>
+  <path fill="#FFEBEE" d="M24,35l-3-21h6L24,35z"/>
+  <path fill="#FFF" d="M24,35V14h3L24,35z"/>
+  <path fill="#FFF" d="M24,35V14h-3L24,35z"/>
+  <path fill="#FFEBEE" d="M24,35l3-21h-6L24,35z"/>
+  <path fill="#B71C1C" d="M24,5l-5,9h10L24,5z"/>
+</svg>

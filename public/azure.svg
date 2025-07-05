@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+  <linearGradient id="k8yl7~hDat~FaoWq8WjN6a" x1="-1254.397" x2="-1261.911" y1="877.268" y2="899.466" gradientTransform="translate(1981.75 -1362.063) scale(1.5625)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#114a8b"/>
+    <stop offset="1" stop-color="#0669bc"/>
+  </linearGradient>
+  <path fill="url(#k8yl7~hDat~FaoWq8WjN6a)" d="M17.634,6h11.305L17.203,40.773c-0.247,0.733-0.934,1.226-1.708,1.226H6.697 c-0.994,0-1.8-0.806-1.8-1.8c0-0.196,0.032-0.39,0.094-0.576L15.926,7.227C16.173,6.494,16.86,6,17.634,6L17.634,6z"/>
+  <path fill="#0078d4" d="M34.062,29.324H16.135c-0.458-0.001-0.83,0.371-0.831,0.829c0,0.231,0.095,0.451,0.264,0.608 l11.52,10.752C27.423,41.826,27.865,42,28.324,42h10.151L34.062,29.324z"/>
+  <linearGradient id="k8yl7~hDat~FaoWq8WjN6b" x1="-1252.05" x2="-1253.788" y1="887.612" y2="888.85" gradientTransform="translate(1981.75 -1362.063) scale(1.5625)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-opacity=".3"/>
+    <stop offset=".071" stop-opacity=".2"/>
+    <stop offset=".321" stop-opacity=".1"/>
+    <stop offset=".623" stop-opacity=".05"/>
+    <stop offset="1" stop-opacity="0"/>
+  </linearGradient>
+  <path fill="url(#k8yl7~hDat~FaoWq8WjN6b)" d="M17.634,6c-0.783-0.003-1.476,0.504-1.712,1.25L5.005,39.595 c-0.335,0.934,0.151,1.964,1.085,2.299C6.286,41.964,6.49,42,6.697,42h9.026c0.786-0.011,1.477-0.518,1.708-1.266L29.072,6H17.634 z"/>
+  <linearGradient id="k8yl7~hDat~FaoWq8WjN6c" x1="-1252.952" x2="-1244.704" y1="876.6" y2="898.575" gradientTransform="translate(1981.75 -1362.063) scale(1.5625)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3ccbf4"/>
+    <stop offset="1" stop-color="#2892df"/>
+  </linearGradient>
+  <path fill="url(#k8yl7~hDat~FaoWq8WjN6c)" d="M32.074,6h-14.44c-0.77,0-1.457,0.494-1.704,1.227l-10.935,32.374 C4.57,40.73,5.239,42,6.432,42h14.44c0.77,0,1.457-0.494,1.704-1.227l10.935-32.374C33.936,7.27,33.267,6,32.074,6z"/>
+</svg>
