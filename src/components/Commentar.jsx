@@ -33,13 +33,6 @@ const Komentar = () => {    React.useEffect(() => {
             text: "Chat on WhatsApp"
         },
         {
-            name: "Email",
-            icon: Mail,
-            url: "mailto:rameshsapkota900@gmail.com",
-            color: "#EA4335",
-            text: "Send an Email"
-        },
-        {
             name: "Instagram",
             icon: Instagram,
             url: "https://www.instagram.com/rameshsapkota900/",
@@ -74,7 +67,7 @@ const Komentar = () => {    React.useEffect(() => {
                     <a
                         key={index}
                         href={link.url}
-                        target={link.name === "Email" ? "_self" : "_blank"}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center gap-4 p-4 rounded-xl bg-white/10 border border-white/20
                                  hover:bg-white/15 hover:border-white/30 transition-all duration-300"

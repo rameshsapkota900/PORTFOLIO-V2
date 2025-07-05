@@ -116,14 +116,14 @@ const ContactPage = () => {
       </div>
 
       <div
-        className="h-auto py-10 flex items-center justify-center px-[5%] md:px-0"
+        className="min-h-[900px] h-auto py-16 flex items-center justify-center px-[5%] md:px-0"
         id="Contact"
       >
         <div className="container px-[1%] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
           <div
             data-aos="fade-right"
             data-aos-duration="1200"
-            className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-5 py-10 sm:p-10 transform transition-all duration-300 hover:shadow-[#6366f1]/10"
+            className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-5 py-12 sm:p-12 transform transition-all duration-300 hover:shadow-[#6366f1]/10"
           >
             <div className="flex justify-between items-start mb-8">
               <div>
@@ -192,7 +192,7 @@ const ContactPage = () => {
                   value={formData.message}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full resize-none p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 h-[25rem] disabled:opacity-50"
+                  className="w-full resize-none p-3 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 h-80 disabled:opacity-50"
                   required
                 />
               </div>
@@ -213,7 +213,7 @@ const ContactPage = () => {
           <div
             data-aos="fade-left"
             data-aos-duration="1200"
-            className="bg-white/5 backdrop-blur-xl rounded-3xl p-5 py-10 sm:p-10 shadow-2xl transform transition-all duration-300 hover:shadow-[#a855f7]/10"
+            className="bg-white/5 backdrop-blur-xl rounded-3xl p-4 py-10 sm:p-10 shadow-2xl transform transition-all duration-300 hover:shadow-[#a855f7]/10 min-h-[400px]"
           >
             <Komentar />
           </div>
