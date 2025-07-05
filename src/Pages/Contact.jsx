@@ -47,25 +47,32 @@ const ContactPage = () => {
       const form = e.target;
       const formData = new FormData(form);
 
-      // Submit form
-      await form.submit();
-
-      // Show success message
-      Swal.fire({
-        title: 'Success!',
-        text: 'Your message has been sent successfully!',
-        icon: 'success',
-        confirmButtonColor: '#6366f1',
-        timer: 2000,
-        timerProgressBar: true
+      // Submit form using fetch to prevent redirect
+      const response = await fetch('https://formsubmit.co/rameshsapkota900@gmail.com', {
+        method: 'POST',
+        body: formData
       });
 
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
+      if (response.ok) {
+        // Show success message
+        Swal.fire({
+          title: 'Success!',
+          text: 'Your message has been sent successfully!',
+          icon: 'success',
+          confirmButtonColor: '#6366f1',
+          timer: 3000,
+          timerProgressBar: true
+        });
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
       Swal.fire({
         title: 'Error!',
@@ -131,14 +138,13 @@ const ContactPage = () => {
             </div>
 
             <form
-              action="https://formsubmit.co/rameshsapkota900@gmail.com"
-              method="POST"
               onSubmit={handleSubmit}
               className="space-y-6"
             >
               {/* FormSubmit Configuration */}
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_autoresponse" value="Thank you for your message! I'll get back to you soon." />
 
               <div
                 data-aos="fade-up"
