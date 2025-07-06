@@ -169,7 +169,7 @@ const certificateImages = [
   "/java1.png",
   "/java2.png",
   "/java3.png",
-  "/ava intermediate.png",
+  "/java intermediate.jpg",
   "/python2.png",
   "/python1.png"
 ]
