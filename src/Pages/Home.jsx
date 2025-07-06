@@ -92,6 +92,20 @@ const Home = () => {
   const [charIndex, setCharIndex] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
+  const [isHighDPI, setIsHighDPI] = useState(false)
+
+  // Detect screen resolution/zoom level
+  useEffect(() => {
+    const checkDPI = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const zoom = Math.round((window.outerWidth / window.innerWidth) * 100);
+      setIsHighDPI(dpr > 1 || zoom > 110); // 125% zoom or high DPI
+    };
+
+    checkDPI();
+    window.addEventListener('resize', checkDPI);
+    return () => window.removeEventListener('resize', checkDPI);
+  }, []);
 
   // Optimize AOS initialization
   useEffect(() => {
@@ -161,10 +175,20 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-[#030014] overflow-hidden" id="Home">
       <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
-        <div className="container mx-auto px-[5%] sm:px-6 lg:px-[0%] min-h-screen">
-          <div className="flex flex-col lg:flex-row items-center justify-center h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20">
+        <div className={`container mx-auto ${
+          isHighDPI 
+            ? "px-[5%] sm:px-6 lg:px-[8%] xl:px-[10%] 2xl:px-[12%]"
+            : "px-[5%] sm:px-6 lg:px-[0%]"
+        }`}>
+          <div className={`flex flex-col lg:flex-row items-center justify-center ${
+            isHighDPI 
+              ? "min-h-screen md:justify-between gap-8 sm:gap-12 lg:gap-20 py-16 sm:py-20 lg:py-24"
+              : "h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20"
+          }`}>
             {/* Left Column */}
-            <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 lg:mt-0"
+            <div className={`w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 ${
+              isHighDPI ? "" : "lg:mt-0 mt-8"
+            }`}
               data-aos="fade-right"
               data-aos-delay="200">
               <div className="space-y-4 sm:space-y-6">
@@ -209,7 +233,9 @@ const Home = () => {
             </div>
 
             {/* Right Column - Optimized Lottie Animation */}
-            <div className="w-full py-[10%] sm:py-0 lg:w-1/2 h-auto lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 lg:order-2 mt-8 lg:mt-0"
+            <div className={`w-full lg:w-1/2 h-auto lg:h-[600px] xl:h-[750px] relative flex items-center justify-center order-2 lg:order-2 ${
+              isHighDPI ? "" : "py-[10%] sm:py-0 mt-8 lg:mt-0"
+            }`}
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
               data-aos="fade-left"

@@ -162,7 +162,6 @@ const techStacks = [
 ];
 
 const certificateImages = [
-  "/python2.png",
   "/awscloud.png",
   "/awsdata.png",
   "/awsmachin2.png",
@@ -170,6 +169,8 @@ const certificateImages = [
   "/java1.png",
   "/java2.png",
   "/java3.png",
+  "/ava intermediate.png",
+  "/python2.png",
   "/python1.png"
 ]
 

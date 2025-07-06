@@ -3,11 +3,28 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { Mail, MessageSquare, Share2, ExternalLink, Github, Linkedin, Instagram, Youtube, Phone } from "lucide-react";
 
-const Komentar = () => {    React.useEffect(() => {
+const Komentar = () => {    
+    const [displayScale, setDisplayScale] = React.useState(100);
+
+    React.useEffect(() => {
         AOS.init({
             once: false,
             duration: 1000,
         });
+        
+        // Detect display scale
+        const detectDisplayScale = () => {
+            // devicePixelRatio is a good approximation of display scale
+            const scale = Math.round(window.devicePixelRatio * 100);
+            setDisplayScale(scale);
+        };
+
+        detectDisplayScale();
+        window.addEventListener('resize', detectDisplayScale);
+
+        return () => {
+            window.removeEventListener('resize', detectDisplayScale);
+        };
     }, []);
 
     const socialLinks = [
@@ -49,7 +66,7 @@ const Komentar = () => {    React.useEffect(() => {
     ];
 
     return (
-        <div className="w-full h-full p-4">
+        <div className={`w-full h-full ${displayScale > 110 ? "p-4 sm:p-6" : "p-4"}`}>
             <div className="flex justify-between items-start mb-8">
                 <div>
                     <h2 className="text-4xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#6366f1]">

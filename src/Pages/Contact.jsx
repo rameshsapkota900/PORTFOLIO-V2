@@ -14,11 +14,26 @@ const ContactPage = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [displayScale, setDisplayScale] = useState(100);
 
   useEffect(() => {
     AOS.init({
       once: false,
     });
+    
+    // Detect display scale
+    const detectDisplayScale = () => {
+      // devicePixelRatio is a good approximation of display scale
+      const scale = Math.round(window.devicePixelRatio * 100);
+      setDisplayScale(scale);
+    };
+
+    detectDisplayScale();
+    window.addEventListener('resize', detectDisplayScale);
+
+    return () => {
+      window.removeEventListener('resize', detectDisplayScale);
+    };
   }, []);
 
   const handleChange = (e) => {
@@ -87,7 +102,7 @@ const ContactPage = () => {
 
   return (
     <>
-      <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
+      <div className={`text-center lg:mt-[5%] mt-10 mb-2 ${displayScale > 110 ? "px-4 sm:px-6 lg:px-8" : "sm:px-0 px-[5%]"}`}>
         <h2
           data-aos="fade-down"
           data-aos-duration="1000"
@@ -116,10 +131,14 @@ const ContactPage = () => {
       </div>
 
       <div
-        className="min-h-[900px] h-auto py-16 flex items-center justify-center px-[5%] md:px-0"
+        className={`min-h-[900px] h-auto py-16 flex items-center justify-center ${
+          displayScale > 110 ? "px-4 sm:px-6 lg:px-8" : "px-[5%] md:px-0"
+        }`}
         id="Contact"
       >
-        <div className="container px-[1%] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className={`${
+          displayScale > 110 ? "container mx-auto max-w-7xl" : "container px-[1%]"
+        } grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8`}>
           <div
             data-aos="fade-right"
             data-aos-duration="1200"
