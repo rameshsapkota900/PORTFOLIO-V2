@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
+import { Share2, User, Mail, MessageSquare, Send, Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SocialLinks from "../components/SocialLinks";
 import Komentar from "../components/Commentar";
 import Swal from "sweetalert2";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useForm, ValidationError } from "@formspree/react";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +14,8 @@ const ContactPage = () => {
     email: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [displayScale, setDisplayScale] = useState(100);
+  const [state, handleFormspreeSubmit] = useForm("mvgrjpan"); // Formspree form ID
 
   useEffect(() => {
     AOS.init({
@@ -46,8 +47,8 @@ const ContactPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
+    // Show loading message
     Swal.fire({
       title: 'Sending Message...',
       html: 'Please wait while we send your message',
@@ -57,46 +58,34 @@ const ContactPage = () => {
       }
     });
 
-    try {
-      // Get form data
-      const form = e.target;
-      const formData = new FormData(form);
+    // Use Formspree's submit handler
+    const formspreeResult = await handleFormspreeSubmit(e);
 
-      // Submit form using fetch to prevent redirect
-      const response = await fetch('https://formsubmit.co/rameshsapkota900@gmail.com', {
-        method: 'POST',
-        body: formData
+    if (formspreeResult.succeeded) {
+      // Show success message
+      Swal.fire({
+        title: 'Success!',
+        text: 'Your message has been sent successfully!',
+        icon: 'success',
+        confirmButtonColor: '#6366f1',
+        timer: 3000,
+        timerProgressBar: true
       });
 
-      if (response.ok) {
-        // Show success message
-        Swal.fire({
-          title: 'Success!',
-          text: 'Your message has been sent successfully!',
-          icon: 'success',
-          confirmButtonColor: '#6366f1',
-          timer: 3000,
-          timerProgressBar: true
-        });
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } else {
+      // Show error message
       Swal.fire({
         title: 'Error!',
         text: 'Something went wrong. Please try again later.',
         icon: 'error',
         confirmButtonColor: '#6366f1'
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -156,15 +145,47 @@ const ContactPage = () => {
               <Share2 className="w-10 h-10 text-[#6366f1] opacity-50" />
             </div>
 
-            <form
+            {state.succeeded ? (
+              <div className="text-center py-10 space-y-6">
+                <div className="flex justify-center">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#6366f1]/20 to-[#a855f7]/20 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#6366f1]/40 to-[#a855f7]/40 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6366f1] to-[#a855f7] flex items-center justify-center">
+                        <Check className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 className="text-2xl font-bold text-white">Thank you!</h3>
+                <p className="text-gray-300 max-w-md mx-auto">
+                  Your message has been received. I'll get back to you as soon as possible.
+                </p>
+                
+                <div className="pt-6">
+                  <Link
+                    to="/"
+                    className="inline-flex items-center gap-2 text-[#6366f1] hover:text-[#a855f7] transition-colors duration-300"
+                  >
+                    <span>Return to homepage</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                  className="mt-4 inline-block px-6 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white transition-all duration-300"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form
               onSubmit={handleSubmit}
               className="space-y-6"
             >
-              {/* FormSubmit Configuration */}
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_autoresponse" value="Thank you for your message! I'll get back to you soon." />
-
               <div
                 data-aos="fade-up"
                 data-aos-delay="100"
@@ -177,9 +198,15 @@ const ContactPage = () => {
                   placeholder="Your Name"
                   value={formData.name}
                   onChange={handleChange}
-                  disabled={isSubmitting}
+                  disabled={state.submitting}
                   className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 disabled:opacity-50"
                   required
+                />
+                <ValidationError 
+                  prefix="Name" 
+                  field="name"
+                  errors={state.errors}
+                  className="text-red-400 text-sm mt-1 pl-2"
                 />
               </div>
               <div
@@ -189,14 +216,21 @@ const ContactPage = () => {
               >
                 <Mail className="absolute left-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-[#6366f1] transition-colors" />
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   placeholder="Your Email"
                   value={formData.email}
                   onChange={handleChange}
-                  disabled={isSubmitting}
+                  disabled={state.submitting}
                   className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 disabled:opacity-50"
                   required
+                />
+                <ValidationError 
+                  prefix="Email" 
+                  field="email"
+                  errors={state.errors}
+                  className="text-red-400 text-sm mt-1 pl-2"
                 />
               </div>
               <div
@@ -206,26 +240,49 @@ const ContactPage = () => {
               >
                 <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-[#6366f1] transition-colors" />
                 <textarea
+                  id="message"
                   name="message"
                   placeholder="Your Message"
                   value={formData.message}
                   onChange={handleChange}
-                  disabled={isSubmitting}
+                  disabled={state.submitting}
                   className="w-full resize-none p-3 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 h-80 disabled:opacity-50"
                   required
+                />
+                <ValidationError 
+                  prefix="Message" 
+                  field="message"
+                  errors={state.errors}
+                  className="text-red-400 text-sm mt-1 pl-2"
                 />
               </div>
               <button
                 data-aos="fade-up"
                 data-aos-delay="400"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={state.submitting}
                 className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#6366f1]/20 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 <Send className="w-5 h-5" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {state.submitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
+            )}
+
+            {state.succeeded && (
+              <div className="mt-6 p-4 bg-green-500/10 text-green-700 rounded-xl border border-green-500/20">
+                <div className="flex items-center gap-3">
+                  <Check className="w-6 h-6" />
+                  <span className="text-sm md:text-base font-medium">
+                    Your message has been sent! I'll get back to you as soon as possible.
+                  </span>
+                </div>
+                <div className="mt-3 text-sm text-gray-500">
+                  <ArrowRight className="inline-block w-4 h-4 mr-1 -mt-1" />
+                  Tip: You can also reach me on social media for a quicker response.
+                </div>
+              </div>
+            )}
 
           </div>
 
