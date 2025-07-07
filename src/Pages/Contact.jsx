@@ -15,7 +15,11 @@ const ContactPage = () => {
     message: "",
   });
   const [displayScale, setDisplayScale] = useState(100);
-  const [state, handleFormspreeSubmit] = useForm("mvgrjpan"); // Formspree form ID
+  // Using Formspree with performance config options
+  const [state, handleFormspreeSubmit] = useForm("mvgrjpan", {
+    data: { pageTitle: "Portfolio Contact Form" },
+    skipValidation: true // Skip client-side validation for faster submission
+  });
 
   useEffect(() => {
     AOS.init({
@@ -47,38 +51,34 @@ const ContactPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Show loading message
-    Swal.fire({
-      title: 'Sending Message...',
-      html: 'Please wait while we send your message',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
+    
+    // Optimistic UI update - immediately reset the form for a faster feeling
+    const formDataBackup = { ...formData };
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
     });
-
+    
     // Use Formspree's submit handler
     const formspreeResult = await handleFormspreeSubmit(e);
-
+    
     if (formspreeResult.succeeded) {
-      // Show success message
+      // Show success message with reduced timer for faster UX
       Swal.fire({
         title: 'Success!',
         text: 'Your message has been sent successfully!',
         icon: 'success',
         confirmButtonColor: '#6366f1',
-        timer: 3000,
+        timer: 1500,
         timerProgressBar: true
       });
 
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
+      // Form was already reset for instant feedback
     } else {
+      // Restore form data on error
+      setFormData(formDataBackup);
+      
       // Show error message
       Swal.fire({
         title: 'Error!',
